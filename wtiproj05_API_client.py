@@ -1,5 +1,4 @@
 import requests
-import time
 import wtiproj03_ETL
 import lab04
 
