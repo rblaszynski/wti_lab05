@@ -24,7 +24,7 @@ def add_rating():
 @app.route('/api/ratings', methods=['DELETE'])
 def del_ratings():
     api_logic.delete_ratings()
-    return jsonify({'deleted'}), 200, {"Content-Type": "application/json"}
+    return jsonify({}), 200, {"Content-Type": "application/json"}
 
 
 @app.route('/api/avg-genre-ratings/all-users', methods=["GET"])
@@ -37,6 +37,12 @@ def avg_all_users():
 def avg_user(user_id):
     avg_for_user = api_logic.get_avg_for_user(user_id)
     return jsonify(avg_for_user), 200, {"Content-Type": "application/json"}
+
+
+@app.route('/api/user-profile/<int:user_id>', methods=["GET"])
+def user_profile(user_id):
+    profile = api_logic.get_user_profile(user_id)
+    return jsonify(profile), 200, {"Content-Type": "application/json"}
 
 
 if __name__ == '__main__':
