@@ -47,4 +47,27 @@ def add_ratings():
 
 
 if __name__ == '__main__':
-    print('TEST API')
+    #czyszczenie bazy
+    test_delete()
+    #dodawanie 100 ocen postem
+    add_ratings()
+    #profile uzytkownikow
+    test_user_profile(78)
+    test_user_profile(75)
+    #srednie uzytkownikow
+    test_user_avg(78)
+    test_user_avg(75)
+    #srednia wszystkich
+    test_all_avg()
+
+    #czyszczenie bazy
+    test_delete()
+    #dodanie jednej oceny
+    test_post(json_list[0])
+    #sprawdzenie oceny
+    test_get_ratings(75)
+    #sprawdzenie sredniej uzytkownika i dla calosci (takie same)
+    test_user_avg(75)
+    test_all_avg()
+    #sprawdzenie profilu uzytkownika (0)
+    test_user_profile(75)
