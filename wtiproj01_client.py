@@ -32,3 +32,7 @@ def pull_whole_queue(queue_name):
 
 def get_whole_queue(queue_name):
     return r.lrange(queue_name, 0, -1)
+
+
+def get_last_element(name):
+    return r.lindex(name, -1)
