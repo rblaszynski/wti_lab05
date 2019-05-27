@@ -30,16 +30,16 @@ def calc_all_avg(df, genres_list):
 
 
 def calc_avg_for_user(df, genres_list, userID):
-    df_for_user = df.loc[df['userID'] == int(userID)]
+    df_for_user = df.loc[df['userid'] == int(userID)]
     x = calc_all_avg(df_for_user, genres_list)
-    x['userID'] = userID
+    x['userid'] = userID
     return x
 
 
 def user_dif(user_mean, all_mean):
     new_mean = {}
     for genre, mean in user_mean.items():
-        if genre == 'userID':
+        if genre == 'userid':
             continue
         elif mean > 0.0:
             new_mean[genre] = all_mean[genre] - mean

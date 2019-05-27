@@ -38,9 +38,9 @@ def get_df():
     df_pivoted = df2.pivot_table(index="movieID", columns="genre", values="dummy_column")
     df_pivoted = df_pivoted.fillna(0)
     df = pd.merge(df1, df_pivoted, on=["movieID"])
-    df.columns = ["genre-" + name if name not in df.columns[:3] else name for name in df.columns]
+    df.columns = ["genre" + name if name not in df.columns[:3] else name for name in df.columns]
     genres_list = list(df)
-    genres_list = [i for i in genres_list if i.startswith('genre-')]
+    genres_list = [i for i in genres_list if i.startswith('genre')]
     return df, genres_list
 
 
