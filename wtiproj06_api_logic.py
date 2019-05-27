@@ -92,8 +92,11 @@ class WtiProj06:
     def calc_avg_for_user(self, args):
         return lab04.calc_avg_for_user(self.get_all_ratings(), genres, args)
 
-    def calc_user_profile(self, args):
-        print()
+    def calc_user_profile(self, user_id):
+        avg_genres = self.calc_avg_for_all()
+        avg_for_user = self.get_avg_for_user(user_id)
+        user_profile, ar = lab04.user_dif(avg_for_user, avg_genres)
+        return user_profile
 
     def get_avg_for_user(self, args):
         avg = wtiproj06_cassandra_client.get_user_rating(self.session, self.keyspace, self.user_avg_table, args)
