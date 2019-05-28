@@ -32,20 +32,20 @@ class WtiProj06:
     def add_rating(self, rate):
         wtiproj06_cassandra_client.push_rating(self.session, self.keyspace, self.rating_table, rate['userID'],
                                                rate['movieID'],
-                                               rate['rating'], rate['genre-Action'],
-                                               rate['genre-Adventure'], rate['genre-Animation'],
-                                               rate['genre-Children'],
-                                               rate['genre-Comedy'],
-                                               rate['genre-Crime'], rate['genre-Documentary'], rate['genre-Drama'],
-                                               rate['genre-Fantasy'],
-                                               rate['genre-Film-Noir'], rate['genre-Horror'], rate['genre-IMAX'],
-                                               rate['genre-Musical'],
-                                               rate['genre-Mystery'], rate['genre-Romance'], rate['genre-Sci-Fi'],
-                                               rate['genre-Short'],
-                                               rate['genre-Thriller'], rate['genre-War'], rate['genre-Western'])
+                                               rate['rating'], rate['genreAction'],
+                                               rate['genreAdventure'], rate['genreAnimation'],
+                                               rate['genreChildren'],
+                                               rate['genreComedy'],
+                                               rate['genreCrime'], rate['genreDocumentary'], rate['genreDrama'],
+                                               rate['genreFantasy'],
+                                               rate['genreFilm-Noir'], rate['genreHorror'], rate['genreIMAX'],
+                                               rate['genreMusical'],
+                                               rate['genreMystery'], rate['genreRomance'], rate['genreSci-Fi'],
+                                               rate['genreShort'],
+                                               rate['genreThriller'], rate['genreWar'], rate['genreWestern'])
 
     def delete_ratings(self):
-        print()  # wtiproj06_cassandra_client
+        wtiproj06_cassandra_client.delete_ratings(self.session, self.keyspace, self.rating_table)
 
     def add_avg_for_all(self):
         avg = self.calc_avg_for_all()
@@ -86,8 +86,11 @@ class WtiProj06:
 
     def get_all_avg(self):
         avg = wtiproj06_cassandra_client.get_ratings(self.session, self.keyspace, self.all_avg_table)
-        avg.current_rows[0].pop('uuid', None)
-        return avg.current_rows[0]
+        if len(avg.current_rows) != 0:
+            avg.current_rows[0].pop('uuid', None)
+            return avg.current_rows[0]
+        else:
+            return []
 
     def calc_avg_for_user(self, args):
         return lab04.calc_avg_for_user(self.get_all_ratings(), genres, args)
@@ -100,4 +103,15 @@ class WtiProj06:
 
     def get_avg_for_user(self, args):
         avg = wtiproj06_cassandra_client.get_user_rating(self.session, self.keyspace, self.user_avg_table, args)
-        return avg.current_rows[0]
+        if len(avg.current_rows) != 0:
+            return avg.current_rows[0]
+        else:
+            return []
+
+    def get_user_ratings(self, args):
+        ratings = wtiproj06_cassandra_client.get_user_rating(self.session, self.keyspace, self.rating_table, args)
+        if len(ratings.current_rows) != 0:
+            ratings.current_rows[0].pop('uuid', None)
+            return ratings.current_rows[0]
+        else:
+            return []

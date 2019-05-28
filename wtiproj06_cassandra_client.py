@@ -18,26 +18,26 @@ def create_rating_table(session, keyspace, table):
         userID int,
         movieID int,
         rating float,
-        genreAction int,
-        genreAdventure int,
-        genreAnimation int,
-        genreChildren int,
-        genreComedy int,
-        genreCrime int,
-        genreDocumentary int,
-        genreDrama int,
-        genreFantasy int,
-        genreFilmNoir int,
-        genreHorror int,
-        genreIMAX int,
-        genreMusical int,
-        genreMystery int,
-        genreRomance int,
-        genreSciFi int,
-        genreShort int,
-        genreThriller int,
-        genreWar int,
-        genreWestern int,
+        genreAction float,
+        genreAdventure float,
+        genreAnimation float,
+        genreChildren float,
+        genreComedy float,
+        genreCrime float,
+        genreDocumentary float,
+        genreDrama float,
+        genreFantasy float,
+        genreFilmNoir float,
+        genreHorror float,
+        genreIMAX float,
+        genreMusical float,
+        genreMystery float,
+        genreRomance float,
+        genreSciFi float,
+        genreShort float,
+        genreThriller float,
+        genreWar float,
+        genreWestern float,
         PRIMARY KEY(uuid))
         """)
 
@@ -294,4 +294,8 @@ def get_ratings(session, keyspace, table):
 
 
 def get_user_rating(session, keyspace, table, user_id):
-    return session.execute("SELECT * FROM " + keyspace + "." + table + " WHERE userid =" + user_id + ";")
+    return session.execute("SELECT * FROM " + keyspace + "." + table + " WHERE userid =" + user_id + " ALLOW FILTERING;")
+
+
+def delete_ratings(session, keyspace, table):
+    session.execute("TRUNCATE " + keyspace + "." + table + ";")
